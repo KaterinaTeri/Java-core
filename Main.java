@@ -1,46 +1,56 @@
 package ru.geekbrains;
 
+import java.util.Arrays;
+
 public class Main {
 
+
     public static void main(String[] args) {
+        doLesson_Fruits();
 
-        String[][] arr = {{"1", "2", "3", "4"}, {"2", "2", "2", "3"}, {"1", "2", "2", "2"}, {"2", "2", "2", "2"}};
-        try {
-            try {
-                int result = method(arr);
-                System.out.println(result);
-            } catch (MyArraySizeException e) {
-                System.out.println("Размер массива превышен!");
-            }
-        }
-        catch (MyArrayDataException e) {
-            System.out.println("Неправильное значение массива!");
-            System.out.println("Ошибка в ячейке: " + e.i + "x" + e.j);
-        }
+        System.out.println();
 
+        String[] massive = {"Kryg ", "Kvadrat ", "Treygolnik"};
+        for (int i = 0; i < massive.length; i++) {
+            System.out.print(massive[i]);
+        }
+        System.out.println();
+
+        changeMassive(massive, 0,2);
     }
 
+    public static void changeMassive(Object[] massive, int a, int b) {
+        Object temp = massive[a];
+        massive[a] = massive[b];
+        massive[b] = temp;
+        System.out.println(Arrays.toString(massive));
+    }
 
-    public static  int method(String[][] arr) throws MyArraySizeException, MyArrayDataException {
-        int count = 0;
-        if (arr.length != 4) {
-            throw new MyArraySizeException();
-        }
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].length != 4) {
-                throw new MyArraySizeException();
-            }
-            for (int j = 0; j < arr[i].length; j++) {
-                try {
-                    count = count + Integer.parseInt(arr[i][j]);
-                }
-                catch (NumberFormatException e) {
-                    throw new MyArrayDataException(i, j);
-                }
-            }
+    private static void doLesson_Fruits() {
+        Box<Apple> appleBox = new Box<Apple>(1);
+        Box<Orange> orangeBox = new Box<Orange>(1.5);
+        Box<Apple> appleBox2 = new Box<Apple>(1);
 
+        for (int i = 0; i < 3; i++) {
+
+            orangeBox.addFruit(new Orange());
+            appleBox.addFruit(new Apple());
+            appleBox2.addFruit(new Apple());
         }
-        return count;
+
+        appleBox.addFruit(new Apple());
+        appleBox.addFruit(new Apple());
+
+        appleBox2.addFruit(new Apple());
+
+
+        System.out.println("Weight appleBox: " + appleBox.getBoxWeight());
+        System.out.println("Weight orangeBox: " + orangeBox.getBoxWeight());
+        System.out.println("Weights equals - " + appleBox.compare(orangeBox));
+        System.out.println("---------------------------------------------");
+
+        appleBox.addFruits(appleBox2);
+
     }
 
 }
