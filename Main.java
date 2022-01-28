@@ -1,46 +1,46 @@
 package ru.geekbrains;
 
+import java.util.*;
+
 public class Main {
 
     public static void main(String[] args) {
-
-        String[][] arr = {{"1", "2", "3", "4"}, {"2", "2", "2", "3"}, {"1", "2", "2", "2"}, {"2", "2", "2", "2"}};
-        try {
-            try {
-                int result = method(arr);
-                System.out.println(result);
-            } catch (MyArraySizeException e) {
-                System.out.println("Размер массива превышен!");
-            }
-        }
-        catch (MyArrayDataException e) {
-            System.out.println("Неправильное значение массива!");
-            System.out.println("Ошибка в ячейке: " + e.i + "x" + e.j);
-        }
-
+        doColor();
+        doTelefone();
     }
 
+    private static void doColor() {
+        Map<String, Integer> hm = new HashMap<>();
+        String[] colors = {"Red", "Blue", "Yellow", "Black", "White", "Orange", "Red", "Black", "Braun", "Grey"};
 
-    public static  int method(String[][] arr) throws MyArraySizeException, MyArrayDataException {
-        int count = 0;
-        if (arr.length != 4) {
-            throw new MyArraySizeException();
+        for (int i = 0; i < colors.length; i++) {
+            if (hm.containsKey(colors[i]))
+                hm.put(colors[i], hm.get(colors[i]) + 1);
+            else
+                hm.put(colors[i], 1);
         }
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].length != 4) {
-                throw new MyArraySizeException();
-            }
-            for (int j = 0; j < arr[i].length; j++) {
-                try {
-                    count = count + Integer.parseInt(arr[i][j]);
-                }
-                catch (NumberFormatException e) {
-                    throw new MyArrayDataException(i, j);
-                }
-            }
+        System.out.println(hm);
+        System.out.println("--------------------------------");
 
         }
-        return count;
+
+
+    private static void doTelefone() {
+        Directory directory = new Directory();
+
+        directory.add("Anna", "111");
+        directory.add("Boris", "222");
+        directory.add("Vladimir", "333");
+        directory.add("Gennadiy", "444");
+        directory.add("Anna", "555");
+        directory.add("Dmitriy", "666");
+        directory.add("Elena", "777");
+        directory.add("Elena", "888");
+        directory.add("Vladimir", "999");
+
+        System.out.println(directory.get("Anna"));
+        System.out.println(directory.get("Boris"));
+        System.out.println(directory.get("Elena"));
+        System.out.println(directory.get("Dmitriy"));
     }
-
 }
